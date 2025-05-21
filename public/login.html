@@ -8,14 +8,14 @@
 </head>
 <body>
   <header>
-        <nav class="navbar">
-          <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="login.html">Área Restrita</a></li>
-            <li><a href="cadastro.html">Cadastro</a></li>
-            <li><a href="transparencia.html">Transparência</a></li>
-          </ul>
-        </nav>        
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="login.html">Área Restrita</a></li>
+        <li><a href="cadastro.html">Cadastro</a></li>
+        <li><a href="transparencia.html">Transparência</a></li>
+      </ul>
+    </nav>        
     <h1 data-i18n="loginHeader">Área Restrita</h1>
   </header>
   <section id="login-cooperado">
@@ -31,23 +31,6 @@
     </form>
     <p data-i18n="noAccountText">Não possui conta? <a href="cadastro.html" data-i18n="signupLink">Cadastre-se aqui</a>.</p>
   </section>
-
-  <script>
-    document.getElementById('loginFormCooperado').addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-
-      // Simulação de autenticação
-      if (username === 'cooperado' && password === '12345') {
-        window.location.href = 'transparencia.html';
-      } else {
-        const status = document.getElementById('loginStatus');
-        status.textContent = 'Usuário ou senha inválidos!';
-        status.style.color = 'red';
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

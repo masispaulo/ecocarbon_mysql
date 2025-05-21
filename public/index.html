@@ -8,14 +8,15 @@
 </head>
 <body>
   <header>
-      <nav class="navbar">
-        <ul>
-          <li><a href="index.html">Início</a></li>
-          <li><a href="login.html">Área Restrita</a></li>
-          <li><a href="cadastro.html">Cadastro</a></li>
-          <li><a href="transparencia.html">Transparência</a></li>
-        </ul>
-      </nav>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="login.html">Área Restrita</a></li>
+        <li><a href="cadastro.html">Cadastro</a></li>
+        <li><a href="transparencia.html">Transparência</a></li>
+        <li><a href="patrocinadores.html">Patrocinadores</a></li>
+      </ul>
+    </nav>
     <div class="lang-buttons">
       <button onclick="setLanguage('pt')">🇧🇷</button>
       <button onclick="setLanguage('en')">🇺🇸</button>
@@ -28,7 +29,7 @@
     <img src="imagens/maos-plantando.jpg" alt="Mãos plantando mudas" class="header-img"/>
   </header>
   <section class="divider">EcoCarbon · EcoCarbon · EcoCarbon</section>
- <section class="about">
+  <section class="about">
     <h2 data-i18n="about">Sobre nós</h2>
     <p data-i18n="aboutText1">
       A cooperativa EcoCarbon nasceu da visão e liderança de seu idealizador, um pioneiro comprometido com a preservação ambiental e a conscientização sobre os efeitos do desmatamento. Nosso propósito é tornar acessível a participação dos produtores em práticas sustentáveis.
@@ -50,13 +51,15 @@
       Nosso propósito é liderar a mudança em direção a uma matriz energética sustentável, oferecendo soluções inovadoras em energia renovável e neutralização de carbono. Buscamos progresso socioeconômico, preservando o meio ambiente para as futuras gerações.
     </p>
   </section>
-  <section class="benefits and impact">
-  <h3 data-i18n="benefits and impactTitle">Benefícios e Impacto Ambiental</h3>
-  <p data-i18n="benefits and impactText">Participar da cooperativa reduz despesas com compensações ambientais e oferece alternativas mais acessíveis para neutralização de carbono.</p>
-  <p data-i18n="benefits and impactText2">Contribua para a captura de CO₂ por meio de projetos certificados e auditados, promovendo um futuro mais sustentável.</p>
-</p>
-<p data-i18n="benefits and impactText3">Fortaleça a conservação de ecossistemas, promovendo o reflorestamento, o cuidado com solos e a recuperação de nascentes e rios.</p>
-</section>
+
+  <!-- SEÇÃO DE BENEFÍCIOS E IMPACTO AMBIENTAL -->
+  <section class="benefits-impact">
+    <h3 data-i18n="benefitsImpactTitle">Benefícios e Impacto Ambiental</h3>
+    <p data-i18n="benefitsImpactText1">Participar da cooperativa reduz despesas com compensações ambientais e oferece alternativas mais acessíveis para neutralização de carbono.</p>
+    <p data-i18n="benefitsImpactText2">Contribua para a captura de CO₂ por meio de projetos certificados e auditados, promovendo um futuro mais sustentável.</p>
+    <p data-i18n="benefitsImpactText3">Fortaleça a conservação de ecossistemas, promovendo o reflorestamento, o cuidado com solos e a recuperação de nascentes e rios.</p>
+  </section>
+
   <section class="values">
     <h3 data-i18n="valuesTitle">Valores</h3>
     <div class="value-grid">
@@ -90,23 +93,26 @@
       </div>
     </div>
   </section>
- 
 
+  <!-- SEÇÃO DE PATROCINADORES -->
   <section id="patrocinadores">
     <h2>Patrocinadores</h2>
-    <div class="patrocinador destaque">
-      <img src="imagens/patrocinio-principal.jpg" alt="Patrocinador Principal">
-    </div>
-    <div class="patrocinador medio">
-      <img src="imagens/patrocinio-medio1.jpg" alt="Patrocinador Médio">
-      <img src="imagens/patrocinio-medio2.jpg" alt="Patrocinador Médio">
-    </div>
-    <div class="patrocinador pequeno">
-      <img src="imagens/patrocinio-pequeno1.jpg" alt="Patrocinador Pequeno">
-      <img src="imagens/patrocinio-pequeno2.jpg" alt="Patrocinador Pequeno">
-      <img src="imagens/patrocinio-pequeno3.jpg" alt="Patrocinador Pequeno">
+    <div class="patrocinadores-grid">
+      <div class="patrocinador destaque">
+        <img src="imagens/patrocinio-principal.jpg" alt="Patrocinador Principal">
+      </div>
+      <div class="patrocinador medio">
+        <img src="imagens/patrocinio-medio1.jpg" alt="Patrocinador Médio">
+        <img src="imagens/patrocinio-medio2.jpg" alt="Patrocinador Médio">
+      </div>
+      <div class="patrocinador pequeno">
+        <img src="imagens/patrocinio-pequeno1.jpg" alt="Patrocinador Pequeno">
+        <img src="imagens/patrocinio-pequeno2.jpg" alt="Patrocinador Pequeno">
+        <img src="imagens/patrocinio-pequeno3.jpg" alt="Patrocinador Pequeno">
+      </div>
     </div>
   </section>
+
   <footer>
     <p><strong>Endereço:</strong> Rua Fictícia, 123 - Cidade Verde, BR</p>
     <p><strong>Telefone:</strong> (00) 0000-0000 | <strong>Email:</strong> contato@ecocarbon.org</p>
@@ -118,12 +124,23 @@
   </footer>
 
   <script>
+    // Salva o texto original de cada elemento com data-i18n
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.setAttribute('data-i18n-original', el.textContent);
+      });
+      setLanguage('pt'); // Garante que ao carregar fica em português
+    });
+
     function setLanguage(lang) {
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
+        if (lang === 'pt') {
+          el.textContent = el.getAttribute('data-i18n-original');
+        } else if (translations[lang] && translations[lang][key]) {
           el.textContent = translations[lang][key];
         }
+        // Se não tem tradução, mantém o texto atual
       });
     }
 
@@ -146,7 +163,11 @@
         value3Title: "Social Responsibility",
         value3Text: "Development of communities, social inclusion, job creation, and access to clean and sustainable energy.",
         value4Title: "Integrity",
-        value4Text: "Acting ethically and transparently in all relationships, cultivating trust with collaborators, partners, and clients."
+        value4Text: "Acting ethically and transparently in all relationships, cultivating trust with collaborators, partners, and clients.",
+        benefitsImpactTitle: "Benefits and Environmental Impact",
+        benefitsImpactText1: "Joining the cooperative reduces expenses with environmental compensation and offers more accessible alternatives for carbon offsetting.",
+        benefitsImpactText2: "Contribute to CO₂ capture through certified and audited projects, promoting a more sustainable future.",
+        benefitsImpactText3: "Strengthen ecosystem conservation by promoting reforestation, soil care, and the recovery of springs and rivers.",
       },
       jp: {
         welcome: "エコカーボン協同組合へようこそ",
@@ -166,11 +187,13 @@
         value3Title: "社会的責任",
         value3Text: "地域社会の発展、社会的包摂、雇用創出、クリーンで持続可能なエネルギーへのアクセスを提供します。",
         value4Title: "誠実さ",
-        value4Text: "すべての関係において倫理的かつ透明性を持って行動し、協力者、パートナー、お客様との信頼を築きます。"
+        value4Text: "すべての関係において倫理的かつ透明性を持って行動し、協力者、パートナー、お客様との信頼を築きます。",
+        benefitsImpactTitle: "利点と環境への影響",
+        benefitsImpactText1: "協同組合に参加することで、環境補償費用を削減し、より手頃なカーボンオフセットの選択肢を提供します。",
+        benefitsImpactText2: "認証・監査済みプロジェクトを通じてCO₂の捕捉に貢献し、より持続可能な未来を促進します。",
+        benefitsImpactText3: "森林再生、土壌管理、湧水・河川の回復を促進し、生態系保全を強化します。",
       }
     };
-
-    setLanguage('pt');
   </script>
 </body>
 </html>
