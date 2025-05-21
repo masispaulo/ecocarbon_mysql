@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro - EcoCarbon</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="login.html">Área Restrita</a></li>
+        <li><a href="cadastro.html">Cadastro</a></li>
+        <li><a href="transparencia.html">Transparência</a></li>
+      </ul>
+    </nav> 
+    <h1 data-i18n="signupHeader">Cadastro de Cooperado</h1>
+  </header>
+
+  <section id="cadastro-cooperado">
+    <form id="cadastroForm">
+      <label for="newUsername" data-i18n="newUsernameLabel">Usuário</label>
+      <input type="text" id="newUsername" name="newUsername" required placeholder="Escolha um usuário" />
+
+      <label for="newPassword" data-i18n="newPasswordLabel">Senha</label>
+      <input type="password" id="newPassword" name="newPassword" required placeholder="Escolha uma senha" />
+
+      <button type="submit" data-i18n="signupButton">Cadastrar</button>
+      <p id="cadastroStatus"></p>
+    </form>
+    <p data-i18n="alreadyAccountText">Já possui conta? <a href="login.html" data-i18n="loginLink">Faça login aqui</a>.</p>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('cadastroForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById('newUsername').value;
+        const password = document.getElementById('newPassword').value;
+
+        fetch('http://localhost:3000/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        })
+          .then(response => response.json())
+          .then(data => {
+            const status = document.getElementById('cadastroStatus');
+            if (data.message === 'User registered.') {
+              status.textContent = 'Cadastro realizado com sucesso!';
+              status.style.color = 'green';
+              setTimeout(() => {
+                window.location.href = 'login.html';
+              }, 2000);
+            } else {
+              status.textContent = data.error || 'Erro no cadastro.';
+              status.style.color = 'red';
+            }
+          })
+          .catch(err => {
+            console.error('Erro ao cadastrar:', err);
+            const status = document.getElementById('cadastroStatus');
+            status.textContent = 'Erro ao conectar com o servidor.';
+            status.style.color = 'red';
+          });
+      });
+    });
+  </script>
+</body>
+</html>

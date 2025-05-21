@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - EcoCarbon</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+        <nav class="navbar">
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="login.html">Área Restrita</a></li>
+            <li><a href="cadastro.html">Cadastro</a></li>
+            <li><a href="transparencia.html">Transparência</a></li>
+          </ul>
+        </nav>        
+    <h1 data-i18n="loginHeader">Área Restrita</h1>
+  </header>
+  <section id="login-cooperado">
+    <form id="loginFormCooperado">
+      <label for="username" data-i18n="usernameLabel">Usuário</label>
+      <input type="text" id="username" name="username" required placeholder="Digite seu usuário">
+
+      <label for="password" data-i18n="passwordLabel">Senha</label>
+      <input type="password" id="password" name="password" required placeholder="Digite sua senha">
+
+      <button type="submit" data-i18n="loginButton">Entrar</button>
+      <p id="loginStatus"></p>
+    </form>
+    <p data-i18n="noAccountText">Não possui conta? <a href="cadastro.html" data-i18n="signupLink">Cadastre-se aqui</a>.</p>
+  </section>
+
+  <script>
+    document.getElementById('loginFormCooperado').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Simulação de autenticação
+      if (username === 'cooperado' && password === '12345') {
+        window.location.href = 'transparencia.html';
+      } else {
+        const status = document.getElementById('loginStatus');
+        status.textContent = 'Usuário ou senha inválidos!';
+        status.style.color = 'red';
+      }
+    });
+  </script>
+</body>
+</html>

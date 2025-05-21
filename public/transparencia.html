@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transparência - EcoCarbon</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Portal da Transparência</h1>
+    <a href="login.html" id="logout">Sair</a>
+  </header>
+  <section id="transparencia">
+    <h2>Relatórios e Transparência</h2>
+    <div class="transparencia-quadro">
+      <div class="card-transp">
+        <h3>Relatórios Financeiros</h3>
+        <a href="pdfs/relatorio-financeiro.pdf">📄 Ver relatório</a>
+      </div>
+      <div class="card-transp">
+        <h3>Investimentos</h3>
+        <a href="pdfs/investimentos.pdf">📄 Consultar</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Simular autenticação com localStorage
+    const isAuthenticated = localStorage.getItem("isLoggedIn");
+
+    if (!isAuthenticated) {
+      // Redirecionar para a página de login
+      alert("Você precisa estar logado para acessar esta página!");
+      window.location.href = "login.html";
+    }
+
+    // Logout
+    document.getElementById("logout").addEventListener("click", function () {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
