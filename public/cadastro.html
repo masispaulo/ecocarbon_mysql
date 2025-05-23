@@ -41,7 +41,7 @@
         const username = document.getElementById('newUsername').value;
         const password = document.getElementById('newPassword').value;
 
-        fetch('http://localhost:3000/api/register', {
+        fetch('https://ecocarbon-mysql.onrender.com/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password })
