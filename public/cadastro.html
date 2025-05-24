@@ -41,13 +41,18 @@
         const username = document.getElementById('newUsername').value;
         const password = document.getElementById('newPassword').value;
 
-        fetch('https://ecocarbon-mysql.onrender.com/api/register', {
+        fetch('/api/register', {  // <-- USANDO CAMINHO RELATIVO!
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password })
         })
-          .then(response => response.json())
-          .then(data => {
+          .then(async response => {
+            let data;
+            try {
+              data = await response.json();
+            } catch {
+              data = {};
+            }
             const status = document.getElementById('cadastroStatus');
             if (data.message === 'User registered.') {
               status.textContent = 'Cadastro realizado com sucesso!';
@@ -55,8 +60,11 @@
               setTimeout(() => {
                 window.location.href = 'login.html';
               }, 2000);
+            } else if (data.error) {
+              status.textContent = data.error;
+              status.style.color = 'red';
             } else {
-              status.textContent = data.error || 'Erro no cadastro.';
+              status.textContent = 'Erro no cadastro.';
               status.style.color = 'red';
             }
           })
