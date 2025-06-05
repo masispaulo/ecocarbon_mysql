@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.6;
-  color: #333;
+  color: #0d0808;
 }
 
 /* Header Styles */
@@ -100,7 +100,7 @@ header .header-img {
 }
 
 .about h2 {
-  color: #4caf50;
+  color: #081108;
   text-align: center;
 }
 
@@ -108,16 +108,44 @@ header .header-img {
   margin: 1rem 0;
   text-align: justify;
 }
+.section-flex {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.section-flex.reverse {
+  flex-direction: row-reverse;
+}
+
+.section-flex img {
+  flex: 1 1 40%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.section-flex .text {
+  flex: 1 1 50%;
+  text-align: justify;
+  font-size: 1.05rem;
+  color: #333;
+}
+
 
 /* Mission Section */
 .mission {
   padding: 2rem 1rem;
-  background: #e8f5e9;
+  background: #060a07;
 }
 
 .mission h2 {
   text-align: center;
-  color: #2e7d32;
+  color: #061106;
 }
 
 /* Benefits and Impact Section - VERDE */
@@ -131,7 +159,7 @@ header .header-img {
 }
 
 .benefits-impact h3 {
-  color: #4caf50;
+  color: #031804;
   margin-bottom: 1rem;
   text-align: center;
 }
@@ -139,19 +167,19 @@ header .header-img {
 .benefits-impact p {
   font-size: 1.08rem;
   margin: 0.5rem 0;
-  color: #333;
+  color: #190f0f;
   text-align: center;
 }
 
 /* Values Section */
 .values {
   padding: 2rem 1rem;
-  background: #f1f8e9;
+  background: #e3ebd7;
 }
 
 .values h3 {
   text-align: center;
-  color: #558b2f;
+  color: #090c07;
   margin-bottom: 2rem;
 }
 
@@ -191,12 +219,12 @@ header .header-img {
 
 .values .value-box p {
   font-size: 0.9rem;
-  color: #666;
+  color: #090707;
 }
 
 /* Sponsors Section - VERDE */
 #patrocinadores {
-  background: #f1f8e9;
+  background: #7ad36c;
   padding: 2rem 1rem;
   border-radius: 10px;
   margin: 2rem auto;
@@ -205,7 +233,7 @@ header .header-img {
 }
 
 #patrocinadores h2 {
-  color: #4caf50;
+  color: #052906;
   margin-bottom: 1.5rem;
   font-size: 2rem;
 }
@@ -381,4 +409,15 @@ footer .social img {
 
 footer .social img:hover {
   transform: scale(1.2);
+}
+.section-light {
+  background-color: #688868;
+}
+
+.section-green {
+  background-color: #07580d;
+}
+
+.section-white {
+  background-color: #62cf5a;
 }
