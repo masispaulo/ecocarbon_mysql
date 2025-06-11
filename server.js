@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 // Rota de cadastro de cooperado (importando o router)
-const cooperadoRouter = require('../routes/auth');
+const cooperadoRouter = require('./routes/auth'); // <-- CERTO! (com .)
 app.use('/api/cooperados', cooperadoRouter);
 
 // Inicializa o servidor na porta 3000
