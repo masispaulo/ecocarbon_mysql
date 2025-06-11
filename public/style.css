@@ -162,6 +162,7 @@ header .header-img {
   color: #031804;
   margin-bottom: 1rem;
   text-align: center;
+  /* Remover font-weight para o título, se não quiser negrito */
 }
 
 .benefits-impact p {
@@ -169,6 +170,7 @@ header .header-img {
   margin: 0.5rem 0;
   color: #190f0f;
   text-align: center;
+  font-weight: bold; /* Deixa o texto dos parágrafos em negrito */
 }
 
 /* Values Section */
@@ -283,7 +285,7 @@ header .header-img {
   gap: 1rem;
 }
 .patrocinador.pequeno img {
-  max-width: 100px;
+  max-width: 200px;
   max-height: 50px;
   border: 1px solid #c5e1a5;
   border-radius: 6px;
@@ -292,7 +294,7 @@ header .header-img {
   box-shadow: 0 4px 8px rgba(76, 175, 80, 0.08);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .patrocinadores-grid {
     gap: 1rem;
   }
@@ -421,3 +423,247 @@ footer .social img:hover {
 .section-white {
   background-color: #62cf5a;
 }
+.about h2, .mission h2, .values h3 {
+  font-size: 2rem; /* Aumente o tamanho dos títulos */
+}
+
+.about p, .mission p, .benefits-impact, .values P {
+  font-size: 1.4rem; /* Aumente o tamanho dos parágrafos */
+}
+header .title {
+  font-size: 3rem; /* Aumente o tamanho do título */
+}
+
+header .subtitle {
+  font-size: 1.5rem; /* Aumente o tamanho do subtítulo */
+}
+.values .value-box p {
+  font-size: 1.1rem; /* Aumente o tamanho do texto dos parágrafos */
+}
+.patrocinador.destaque img {
+  max-width: 600px; /* Aumente o tamanho máximo da imagem do patrocinador principal */
+}
+
+.patrocinador.medio img {
+  max-width: 250px; /* Aumente o tamanho máximo das imagens dos patrocinadores médios */
+}
+
+.patrocinador.pequeno img {
+  max-width: 180px; /* Aumente o tamanho máximo das imagens dos patrocinadores pequenos */
+}
+#patrocinadores h2 {
+  font-size: 2.5rem; /* Aumente o tamanho do título */
+}
+.benefits-impact {
+  margin: 2rem auto;
+  max-width: 1100px; /* ajuste aqui para o valor que preferir */
+}
+.about p {
+  margin: 0.5rem 0;
+}
+#cadastro-cooperado {
+  max-width: 460px;
+  margin: 3rem auto 2rem auto;
+  padding: 2rem 2.2rem 1.5rem 2.2rem;
+  background: #f6fff5;
+  border-radius: 18px;
+  box-shadow: 0 2px 20px rgba(76, 175, 80, 0.13);
+}
+
+#cadastro-cooperado h1 {
+  text-align: center;
+  color: #4caf50;
+  margin-bottom: 1.7rem;
+  font-size: 2rem;
+}
+
+#cadastro-cooperado form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+#cadastro-cooperado label {
+  font-weight: 600;
+  color: #195c24;
+  margin-bottom: 0.2rem;
+}
+
+#cadastro-cooperado input,
+#cadastro-cooperado select {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #c5e1a5;
+  border-radius: 6px;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+#cadastro-cooperado input:focus,
+#cadastro-cooperado select:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+#cadastro-cooperado button {
+  background: linear-gradient(90deg, #4caf50 60%, #7ad36c 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.9rem;
+  font-size: 1.08rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+  margin-top: 0.5rem;
+}
+
+#cadastro-cooperado button:hover {
+  background: linear-gradient(90deg, #388e3c 70%, #4caf50 100%);
+  transform: translateY(-2px) scale(1.04);
+}
+
+#cadastroStatus {
+  margin-top: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  #cadastro-cooperado {
+    padding: 1.1rem 0.5rem 1rem 0.5rem;
+    border-radius: 10px;
+    max-width: 98vw;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7fff7;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background: #006d34;
+    color: #fff;
+    padding: 2em 0 1em 0;
+    text-align: center;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    background: #e3ffe3;
+    margin: 0 0 1em 0;
+  }
+  .navbar li {
+    margin: 0 1em;
+  }
+  .navbar a {
+    color: #006d34;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .navbar a:hover {
+    text-decoration: underline;
+  }
+  
+  section#cadastro-cooperado {
+    background: #eeffee;
+    max-width: 400px;
+    margin: 2em auto;
+    padding: 2em 2em 1.5em 2em;
+    border-radius: 16px;
+    box-shadow: 0 0 10px #0001;
+  }
+  
+  form label {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 0.25em;
+    color: #006d34;
+    font-weight: bold;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 0.6em 0.8em;
+    border: 1px solid #b1cdb1;
+    border-radius: 8px;
+    font-size: 1em;
+    margin-bottom: 0.3em;
+    background: #f9fff9;
+    transition: border 0.2s;
+  }
+  
+  form input:focus {
+    outline: none;
+    border-color: #42b05b;
+    background: #f2fff2;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    margin-top: 1em;
+    padding: 0.9em 0;
+    background: linear-gradient(90deg,#42b05b 60%,#86eea0 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  button[type="submit"]:hover {
+    background: linear-gradient(90deg,#379c4e 60%,#72c985 100%);
+  }
+  
+  #cadastroStatus {
+    margin: 1em 0 0 0;
+    text-align: center;
+    font-size: 1.1em;
+  }
+  
+  .senha-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .senha-wrapper input {
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 2.2em;
+  }
+  .senha-toggle {
+    position: absolute;
+    right: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    opacity: 0.65;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+  }
+  .senha-toggle svg {
+    width: 20px;
+    height: 20px;
+    stroke: #bbb;
+    fill: none;
+    pointer-events: none;
+    background: none;
+    display: block;
+  }
+  .senha-toggle:active,
+  .senha-toggle:focus,
+  .senha-toggle:hover {
+    opacity: 0.95;
+    outline: none;
+  }

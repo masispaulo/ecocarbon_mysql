@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cadastro - EcoCarbon</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="cadastro.js"></script>
 </head>
 <body>
   <header>
@@ -15,67 +16,67 @@
         <li><a href="cadastro.html">Cadastro</a></li>
         <li><a href="transparencia.html">Transparência</a></li>
       </ul>
-    </nav> 
-    <h1 data-i18n="signupHeader">Cadastro de Cooperado</h1>
+    </nav>
+    <h1>Cadastro de Cooperado</h1>
   </header>
 
   <section id="cadastro-cooperado">
-    <form id="cadastroForm">
-      <label for="newUsername" data-i18n="newUsernameLabel">Usuário</label>
-      <input type="text" id="newUsername" name="newUsername" required placeholder="Escolha um usuário" />
+    <form id="cadastroCooperado">
+      <label for="nome">Nome completo</label>
+      <input type="text" id="nome" name="nome" required placeholder="Seu nome completo" />
 
-      <label for="newPassword" data-i18n="newPasswordLabel">Senha</label>
-      <input type="password" id="newPassword" name="newPassword" required placeholder="Escolha uma senha" />
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" required placeholder="Seu e-mail" autocomplete="email" />
 
-      <button type="submit" data-i18n="signupButton">Cadastrar</button>
+      <label for="whatsapp">WhatsApp</label>
+      <input type="text" id="whatsapp" name="whatsapp" required placeholder="(99) 99999-9999" />
+
+      <label for="endereco">Endereço</label>
+      <input type="text" id="endereco" name="endereco" required placeholder="Rua, número, bairro" />
+
+      <label for="cep">CEP</label>
+      <input type="text" id="cep" name="cep" required placeholder="00000-000" maxlength="9" />
+
+      <label for="cidade">Cidade</label>
+      <input type="text" id="cidade" name="cidade" required readonly placeholder="Cidade" />
+
+      <label for="estado">Estado</label>
+      <input type="text" id="estado" name="estado" required readonly placeholder="UF" />
+
+      <label for="profissao">Profissão</label>
+      <input type="text" id="profissao" name="profissao" required placeholder="Digite sua profissão" />
+
+      <label for="usuario">Usuário</label>
+      <input type="text" id="usuario" name="usuario" required placeholder="Nome de usuário" autocomplete="username" />
+
+      <label for="senha">Senha</label>
+      <div class="senha-wrapper">
+        <input type="password" id="senha" name="senha" required placeholder="Escolha uma senha" autocomplete="new-password" />
+        <button type="button" class="senha-toggle" id="toggleSenha" aria-label="Mostrar/ocultar senha">
+          <!-- SVG Olho Aberto (sem risco) -->
+          <svg id="olhoSenhaAberto" style="display:none;" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.5"/></svg>
+          <!-- SVG Olho Fechado (com risco) -->
+          <svg id="olhoSenhaFechado" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.5"/><line x1="4" y1="20" x2="20" y2="4" stroke-width="2"/></svg>
+        </button>
+      </div>
+      <div id="senhaForca" style="font-size:0.9em; margin-bottom:8px;"></div>
+
+      <label for="confirmaSenha">Repita a Senha</label>
+      <div class="senha-wrapper">
+        <input type="password" id="confirmaSenha" name="confirmaSenha" required placeholder="Repita a senha" autocomplete="new-password" />
+        <button type="button" class="senha-toggle" id="toggleConfirmaSenha" aria-label="Mostrar/ocultar senha">
+          <!-- SVG Olho Aberto (sem risco) -->
+          <svg id="olhoConfirmaAberto" style="display:none;" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.5"/></svg>
+          <!-- SVG Olho Fechado (com risco) -->
+          <svg id="olhoConfirmaFechado" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="5"/><circle cx="12" cy="12" r="2.5"/><line x1="4" y1="20" x2="20" y2="4" stroke-width="2"/></svg>
+        </button>
+      </div>
+      <div id="senhaConfere" style="font-size:0.9em; margin-bottom:8px;"></div>
+
+      <button type="submit">Cadastrar</button>
       <p id="cadastroStatus"></p>
     </form>
-    <p data-i18n="alreadyAccountText">Já possui conta? <a href="login.html" data-i18n="loginLink">Faça login aqui</a>.</p>
+    <p>Já possui conta? <a href="login.html">Faça login aqui</a>.</p>
   </section>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('cadastroForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const username = document.getElementById('newUsername').value;
-        const password = document.getElementById('newPassword').value;
-
-        fetch('/api/register', {  // <-- USANDO CAMINHO RELATIVO!
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
-        })
-          .then(async response => {
-            let data;
-            try {
-              data = await response.json();
-            } catch {
-              data = {};
-            }
-            const status = document.getElementById('cadastroStatus');
-            if (data.message === 'User registered.') {
-              status.textContent = 'Cadastro realizado com sucesso!';
-              status.style.color = 'green';
-              setTimeout(() => {
-                window.location.href = 'login.html';
-              }, 2000);
-            } else if (data.error) {
-              status.textContent = data.error;
-              status.style.color = 'red';
-            } else {
-              status.textContent = 'Erro no cadastro.';
-              status.style.color = 'red';
-            }
-          })
-          .catch(err => {
-            console.error('Erro ao cadastrar:', err);
-            const status = document.getElementById('cadastroStatus');
-            status.textContent = 'Erro ao conectar com o servidor.';
-            status.style.color = 'red';
-          });
-      });
-    });
-  </script>
 </body>
 </html>

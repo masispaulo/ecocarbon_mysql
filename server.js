@@ -1,28 +1,24 @@
 const express = require('express');
-const cors = require('cors');
 const path = require('path');
-
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middlewares
-app.use(cors());
+// Permite receber JSON no body das requisições
 app.use(express.json());
 
-// Sirva a pasta 'public' na raiz
+// Servir arquivos estáticos da pasta 'public'
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Importa as rotas de autenticação
-const authRoutes = require('./routes/auth');
-app.use('/api', authRoutes); // <-- agora /api/register e /api/login funcionarão!
-
-// Remova OU comente esta rota "/" para não sobrescrever seu site!
-/*
+// Rota inicial para verificar se o servidor está funcionando
 app.get('/', (req, res) => {
-  res.send('✅ Backend da EcoCarbon rodando na porta 3000');
+  res.send('Servidor funcionando! 🚀');
 });
-*/
 
+// Rota de cadastro de cooperado (importando o router)
+const cooperadoRouter = require('../routes/auth');
+app.use('/api/cooperados', cooperadoRouter);
+
+// Inicializa o servidor na porta 3000
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
