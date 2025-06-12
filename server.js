@@ -34,8 +34,8 @@ const db = mysql.createPool({
     }
     const senha_hash = await bcrypt.hash(senha, 10);
     await db.query(
-      'INSERT INTO cooperados (nome, email, whatsapp, endereco, cep, cidade, estado, profissao, senha_hash, criado_em, usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [nome, email, whatsapp, endereco, cep, cidade, estado, profissao, senha_hash, criado_em, usuario]
+      'INSERT INTO cooperados (nome, email, whatsapp, endereco, cep, cidade, estado, profissao, usuario, senha_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [nome, email, whatsapp, endereco, cep, cidade, estado, profissao, usuario, senha_hash]
     );
     res.json({ success: true, message: "Cooperado cadastrado com sucesso!" });
   } catch (err) {
