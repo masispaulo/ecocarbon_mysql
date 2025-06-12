@@ -33,18 +33,55 @@ app.get('/', (req, res) => {
   res.send('Servidor funcionando! 🚀');
 });
 
-// Cadastro de cooperado (simulado, adapte depois para inserir no banco)
+// CADASTRO REAL DE COOPERADO
 app.post('/api/cooperados/cadastro', async (req, res) => {
-  // Exemplo: const { usuario, email, senha } = req.body;
-  // await db.query('INSERT INTO usuarios ...', [usuario, email, senha]);
-  res.json({ success: true, message: "Cadastro simulado com sucesso!" });
+  const {
+    nome,
+    email,
+    whatsapp,
+    endereco,
+    cep,
+    cidade,
+    estado,
+    profissao,
+    senha_hash // Receba a senha já como hash do frontend, para segurança
+  } = req.body;
+
+  try {
+    await db.query(
+      'INSERT INTO cooperados (nome, email, whatsapp, endereco, cep, cidade, estado, profissao, senha_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [nome, email, whatsapp, endereco, cep, cidade, estado, profissao, senha_hash]
+    );
+    res.json({ success: true, message: "Cooperado cadastrado com sucesso!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Erro ao cadastrar cooperado" });
+  }
 });
 
-// LOGIN
+// CADASTRO REAL DE USUÁRIO
+app.post('/api/usuarios/cadastro', async (req, res) => {
+  const { usuario, email, senha } = req.body;
+  try {
+    await db.query(
+      'INSERT INTO usuarios (usuario, email, senha) VALUES (?, ?, ?)',
+      [usuario, email, senha]
+    );
+    res.json({ success: true, message: "Usuário cadastrado com sucesso!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Erro ao cadastrar usuário" });
+  }
+});
+
+// LOGIN USUÁRIO
 app.post('/api/auth/login', async (req, res) => {
   const { usuario, senha } = req.body;
   try {
-    const [rows] = await db.query('SELECT * FROM usuarios WHERE usuario=? AND senha=?', [usuario, senha]);
+    const [rows] = await db.query(
+      'SELECT * FROM usuarios WHERE usuario=? AND senha=?',
+      [usuario, senha]
+    );
     if (rows.length) {
       res.json({ sucesso: true, msg: "Login realizado!" });
     } else {
@@ -56,7 +93,7 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
-// ESQUECI SENHA
+// ESQUECI SENHA USUÁRIO
 app.post('/api/auth/forgot', async (req, res) => {
   const { email } = req.body;
   try {
@@ -72,8 +109,8 @@ app.post('/api/auth/forgot', async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER,      // Exemplo: 'meuexemplo@gmail.com'
-        pass: process.env.EMAIL_PASS       // Senha de app, não a senha normal
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
@@ -91,7 +128,7 @@ app.post('/api/auth/forgot', async (req, res) => {
   }
 });
 
-// RESET DE SENHA
+// RESET DE SENHA USUÁRIO
 app.post('/api/auth/reset/:token', async (req, res) => {
   const { token } = req.params;
   const { senha } = req.body;
