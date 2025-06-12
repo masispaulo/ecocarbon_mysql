@@ -8,48 +8,33 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createPool({
-  host: 'seu_host',
-  user: 'seu_user',
-  password: 'sua_senha',
-  database: 'seu_banco'
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT
 });
 
 // Cadastro de cooperado
 app.post('/api/cooperados/cadastro', async (req, res) => {
   const {
-    nome,
-    usuario,
-    email,
-    whatsapp,
-    endereco,
-    cep,
-    cidade,
-    estado,
-    profissao,
-    senha
+    nome, usuario, email, whatsapp, endereco, cep, cidade, estado, profissao, senha
   } = req.body;
-
+  if (!nome || !usuario || !email || !senha) {
+    return res.status(400).json({ message: 'Nome, usuário, e-mail e senha são obrigatórios.' });
+  }
   try {
-    // Validação básica
-    if (!nome || !usuario || !email || !senha) {
-      return res.status(400).json({ message: 'Nome, usuário, e-mail e senha são obrigatórios.' });
-    }
-
-    // Verifica se o usuário ou e-mail já existem
     const [existe] = await db.query(
       'SELECT id FROM cooperados WHERE usuario = ? OR email = ?', [usuario, email]
     );
     if (existe.length) {
       return res.status(409).json({ message: 'Usuário ou e-mail já cadastrado.' });
     }
-
     const senha_hash = await bcrypt.hash(senha, 10);
-
     await db.query(
       'INSERT INTO cooperados (nome, usuario, email, whatsapp, endereco, cep, cidade, estado, profissao, senha_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [nome, usuario, email, whatsapp, endereco, cep, cidade, estado, profissao, senha_hash]
     );
-
     res.json({ success: true, message: "Cooperado cadastrado com sucesso!" });
   } catch (err) {
     console.error(err);
@@ -57,11 +42,13 @@ app.post('/api/cooperados/cadastro', async (req, res) => {
   }
 });
 
-// Login por usuário ou e-mail
+// Login (usuário OU e-mail)
 app.post('/api/cooperados/login', async (req, res) => {
   const { usuarioOuEmail, senha } = req.body;
+  if (!usuarioOuEmail || !senha) {
+    return res.status(400).json({ message: "Informe usuário/e-mail e senha" });
+  }
   try {
-    // Busca por usuário ou e-mail
     const [rows] = await db.query(
       'SELECT * FROM cooperados WHERE usuario = ? OR email = ?', [usuarioOuEmail, usuarioOuEmail]
     );
@@ -81,6 +68,7 @@ app.post('/api/cooperados/login', async (req, res) => {
   }
 });
 
+// Porta do Render/Heroku/Railway/etc
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
