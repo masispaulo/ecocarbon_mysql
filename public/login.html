@@ -15,22 +15,33 @@
         <li><a href="cadastro.html">Cadastro</a></li>
         <li><a href="transparencia.html">Transparência</a></li>
       </ul>
-    </nav>        
-    <h1 data-i18n="loginHeader">Área Restrita</h1>
+    </nav>
+    <h1>Área Restrita</h1>
   </header>
   <section id="login-cooperado">
     <form id="loginFormCooperado">
-      <label for="username" data-i18n="usernameLabel">Usuário</label>
+      <label for="username">Usuário</label>
       <input type="text" id="username" name="username" required placeholder="Digite seu usuário">
 
-      <label for="password" data-i18n="passwordLabel">Senha</label>
+      <label for="password">Senha</label>
       <input type="password" id="password" name="password" required placeholder="Digite sua senha">
 
-      <button type="submit" data-i18n="loginButton">Entrar</button>
+      <button type="submit">Entrar</button>
       <p id="loginStatus"></p>
     </form>
-    <p data-i18n="noAccountText">Não possui conta? <a href="cadastro.html" data-i18n="signupLink">Cadastre-se aqui</a>.</p>
+    <p>Não possui conta? <a href="cadastro.html">Cadastre-se aqui</a>.</p>
+    <p><a href="#" id="linkEsqueci">Esqueceu a senha?</a></p>
   </section>
-  <script src="script.js"></script>
+  <!-- Modal recuperação -->
+  <div id="modalRecuperar" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%,0); background:white; box-shadow:0 0 10px #ccc; padding:20px; z-index:10;">
+    <form id="recuperarForm">
+      <label for="recEmail">Seu e-mail cadastrado:</label>
+      <input type="email" id="recEmail" required>
+      <button type="submit">Enviar link</button>
+      <p id="recStatus"></p>
+      <button type="button" id="fecharModal">Fechar</button>
+    </form>
+  </div>
+  <script src="login.js"></script>
 </body>
 </html>
