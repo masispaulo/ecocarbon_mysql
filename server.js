@@ -17,14 +17,14 @@ const db = mysql.createPool({
   port: process.env.MYSQLPORT
 });
 
-// Cadastro de cooperado
-app.post('/api/cooperados/cadastro', async (req, res) => {
-  const {
-    nome, usuario, email, whatsapp, endereco, cep, cidade, estado, profissao, senha
-  } = req.body;
-  if (!nome || !usuario || !email || !senha) {
-    return res.status(400).json({ message: 'Nome, usuário, e-mail e senha são obrigatórios.' });
-  }
+  // Cadastro de cooperado
+  app.post('/api/cooperados/cadastro', async (req, res) => {
+    const {
+      nome, usuario, email, whatsapp, endereco, cep, cidade, estado, profissao, senha
+    } = req.body;
+    if (!nome || !usuario || !email || !senha) {
+      return res.status(400).json({ message: 'Nome, usuário, e-mail e senha são obrigatórios.' });
+    }
   try {
     const [existe] = await db.query(
       'SELECT id FROM cooperados WHERE usuario = ? OR email = ?', [usuario, email]
@@ -34,8 +34,8 @@ app.post('/api/cooperados/cadastro', async (req, res) => {
     }
     const senha_hash = await bcrypt.hash(senha, 10);
     await db.query(
-      'INSERT INTO cooperados (nome, usuario, email, whatsapp, endereco, cep, cidade, estado, profissao, senha_hash) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [nome, usuario, email, whatsapp, endereco, cep, cidade, estado, profissao, senha_hash]
+      'INSERT INTO cooperados (nome, email, whatsapp, endereco, cep, cidade, estado, profissao, senha_hash, criado_em, usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [nome, email, whatsapp, endereco, cep, cidade, estado, profissao, senha_hash, criado_em, usuario]
     );
     res.json({ success: true, message: "Cooperado cadastrado com sucesso!" });
   } catch (err) {
