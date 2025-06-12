@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const senhaForca = document.getElementById('senhaForca');
   const senhaConfere = document.getElementById('senhaConfere');
 
-  // Olhinho de senha
   document.getElementById('toggleSenha').addEventListener('click', function () {
     const olhoAberto = document.getElementById('olhoSenhaAberto');
     const olhoFechado = document.getElementById('olhoSenhaFechado');
@@ -83,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     const dados = {
       nome: document.getElementById('nome').value,
+      usuario: document.getElementById('usuario').value,
       email: document.getElementById('email').value,
       whatsapp: document.getElementById('whatsapp').value,
       endereco: document.getElementById('endereco').value,
@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
       cidade: document.getElementById('cidade').value,
       estado: document.getElementById('estado').value,
       profissao: document.getElementById('profissao').value,
-      usuario: document.getElementById('usuario').value,
       senha: senha.value
     };
 
@@ -108,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
         senhaForca.textContent = '';
         senhaConfere.textContent = '';
       } else {
-        document.getElementById('cadastroStatus').textContent = resultado.msg || resultado.error || "Erro ao cadastrar!";
+        document.getElementById('cadastroStatus').textContent = resultado.message || resultado.msg || resultado.error || "Erro ao cadastrar!";
         document.getElementById('cadastroStatus').style.color = "red";
       }
     } catch {

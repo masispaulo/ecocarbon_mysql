@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login - EcoCarbon</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="login.js"></script>
 </head>
 <body>
   <header>
@@ -20,8 +21,8 @@
   </header>
   <section id="login-cooperado">
     <form id="loginFormCooperado">
-      <label for="username">Usuário</label>
-      <input type="text" id="username" name="username" required placeholder="Digite seu usuário">
+      <label for="usuarioOuEmail">Usuário ou E-mail</label>
+      <input type="text" id="usuarioOuEmail" name="usuarioOuEmail" required placeholder="Digite seu usuário ou e-mail">
 
       <label for="password">Senha</label>
       <input type="password" id="password" name="password" required placeholder="Digite sua senha">
@@ -32,7 +33,6 @@
     <p>Não possui conta? <a href="cadastro.html">Cadastre-se aqui</a>.</p>
     <p><a href="#" id="linkEsqueci">Esqueceu a senha?</a></p>
   </section>
-  <!-- Modal recuperação -->
   <div id="modalRecuperar" style="display:none; position:fixed; top:20%; left:50%; transform:translate(-50%,0); background:white; box-shadow:0 0 10px #ccc; padding:20px; z-index:10;">
     <form id="recuperarForm">
       <label for="recEmail">Seu e-mail cadastrado:</label>
@@ -42,6 +42,5 @@
       <button type="button" id="fecharModal">Fechar</button>
     </form>
   </div>
-  <script src="login.js"></script>
 </body>
 </html>
