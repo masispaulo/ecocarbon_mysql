@@ -55,3 +55,8 @@ document.getElementById('recuperarForm').addEventListener('submit', async functi
     status.style.color = "red";
   }
 });
+// Sucesso no login
+if (resp.ok) {
+  window.location.href = "transparencia.html";
+  return;
+}
