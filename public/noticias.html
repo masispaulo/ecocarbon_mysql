@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notícias Ecológicas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="login.html">Área Restrita</a></li>
+        <li><a href="cadastro.html">Cadastro</a></li>
+        <li><a href="transparencia.html">Transparência</a></li>
+        <li><a href="patrocinadores.html">Patrocinadores</a></li>
+        <li><a href="noticias.html" class="ativo">Notícias</a></li>
+      </ul>
+    </nav>
+    <div class="title">🌱 Notícias Ecológicas e Ambientais 🌍</div>
+    <div class="subtitle">Brasil & Mundo | Meio Ambiente, Agrofloresta, Crédito de Carbono</div>
+  </header>
+  <section id="noticias">
+    <p>Carregando notícias...</p>
+  </section>
+  <footer>
+    <div class="rodape">
+      <p><strong>Endereço:</strong> Rua Osório Ilgenfritz n.º 1295 Bairro Assis Brasil - Ijuí/RS </p>
+      <p><strong>Telefone:</strong> (55)999903-5788 | <strong>Email:</strong> contato@ecocarbon.coop.br</p>
+    </div>
+  </footer>
+  <script>
+    // Troque pela sua key se quiser alterar
+    const API_KEY = "c75cfda8dedd47ada0ba7d46eebd1b7f";
+    const query = [
+      "meio ambiente",
+      "ecologia",
+      "agrofloresta",
+      "crédito de carbono",
+      "mudanças climáticas",
+      "sustentabilidade",
+      "natureza",
+      "biodiversidade",
+      "agricultura sustentável"
+    ].join(" OR ");
+
+    const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=pt&sortBy=publishedAt&pageSize=20&apiKey=${API_KEY}`;
+
+    async function carregaNoticias() {
+      const noticiasDiv = document.getElementById('noticias');
+      noticiasDiv.innerHTML = "<p>Carregando notícias...</p>";
+      try {
+        const resp = await fetch(url);
+        const dados = await resp.json();
+        if (dados.status !== "ok" || !dados.articles.length) {
+          noticiasDiv.innerHTML = "<p>Nenhuma notícia encontrada.</p>";
+          return;
+        }
+        noticiasDiv.innerHTML = "";
+        dados.articles.forEach(noticia => {
+          const card = document.createElement('div');
+          card.className = "card-transp";
+          card.innerHTML = `
+            <h3>${noticia.title}</h3>
+            ${noticia.urlToImage ? `<img src="${noticia.urlToImage}" alt="Imagem da notícia" style="width:100%;max-height:180px;object-fit:cover;border-radius:6px;margin-bottom:8px;">` : ""}
+            <div class="fonte" style="color:#89a87d;font-size:0.95rem;">${noticia.source.name} - ${new Date(noticia.publishedAt).toLocaleDateString("pt-BR")}</div>
+            <div class="descricao" style="margin:1rem 0;">${noticia.description || ""}</div>
+            <a href="${noticia.url}" target="_blank">Leia mais</a>
+          `;
+          noticiasDiv.appendChild(card);
+        });
+      } catch (e) {
+        noticiasDiv.innerHTML = "<p>Erro ao carregar notícias.</p>";
+      }
+    }
+    carregaNoticias();
+  </script>
+</body>
+</html>

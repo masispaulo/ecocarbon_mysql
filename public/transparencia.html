@@ -8,6 +8,24 @@
 </head>
 <body>
   <header>
+    <nav class="navbar" id="navbar">
+      <div class="navbar-brand">
+        <span class="brand-title">EcoCarbon</span>
+        <button class="navbar-toggle" id="navbar-toggle" aria-label="Abrir menu">
+          <span class="hamburger"></span>
+          <span class="hamburger"></span>
+          <span class="hamburger"></span>
+        </button>
+      </div>
+      <ul class="navbar-links" id="navbar-links">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="login.html">Área Restrita</a></li>
+        <li><a href="cadastro.html">Cadastro</a></li>
+        <li><a href="transparencia.html" class="ativo">Transparência</a></li>
+        <li><a href="noticias.html">Notícias</a></li>
+        <li><a href="patrocinadores.html">Patrocinadores</a></li>
+      </ul>
+    </nav>
     <h1>Portal da Transparência</h1>
     <a href="login.html" id="logout">Sair</a>
   </header>
@@ -24,21 +42,21 @@
       </div>
     </div>
   </section>
-
+  <footer>
+    <div class="rodape">
+      &copy; 2025 EcoCarbon. Todos os direitos reservados.
+    </div>
+  </footer>
   <script>
-    // Simular autenticação com localStorage
-    const isAuthenticated = localStorage.getItem("token");
-
-    if (!isAuthenticated) {
-      // Redirecionar para a página de login
-      alert("Você precisa estar logado para acessar esta página!");
-      window.location.href = "login.html";
-    }
-
-    // Logout
+    // Logout apenas remove token se existir e vai pra index
     document.getElementById("logout").addEventListener("click", function () {
-      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("token");
       window.location.href = "index.html";
+    });
+
+    // Menu responsivo (hamburger)
+    document.getElementById("navbar-toggle").addEventListener("click", function () {
+      document.getElementById("navbar-links").classList.toggle("active");
     });
   </script>
 </body>

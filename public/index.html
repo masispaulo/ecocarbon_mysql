@@ -8,21 +8,31 @@
 </head>
 <body>
   <header>
-    <nav class="navbar">
-      <ul>
+    <nav class="navbar" id="navbar">
+      <div class="navbar-brand">
+        <span class="brand-title">EcoCarbon</span>
+        <button class="navbar-toggle" id="navbar-toggle" aria-label="Abrir menu">
+          <span class="hamburger"></span>
+          <span class="hamburger"></span>
+          <span class="hamburger"></span>
+        </button>
+      </div>
+      <ul class="navbar-links" id="navbar-links">
         <li><a href="index.html">Início</a></li>
         <li><a href="login.html">Área Restrita</a></li>
         <li><a href="cadastro.html">Cadastro</a></li>
         <li><a href="transparencia.html">Transparência</a></li>
+        <li><a href="noticias.html">Notícias</a></li>
         <li><a href="patrocinadores.html">Patrocinadores</a></li>
       </ul>
+      <div class="lang-buttons">
+        <button onclick="setLanguage('pt')">🇧🇷</button>
+        <button onclick="setLanguage('en')">🇺🇸</button>
+        <button onclick="setLanguage('jp')">🇯🇵</button>
+      </div>
     </nav>
-    <div class="lang-buttons">
-      <button onclick="setLanguage('pt')">🇧🇷</button>
-      <button onclick="setLanguage('en')">🇺🇸</button>
-      <button onclick="setLanguage('jp')">🇯🇵</button>
-    </div>
     <h1 class="title" data-i18n="welcome">Bem-vindo à cooperativa EcoCarbon</h1>
+    <p class="subtitle-mini">cooperativa de gestão de carbono do brasil</p>
     <p class="subtitle" data-i18n="intro">
       Líder em sustentabilidade e inovação no agronegócio. Nosso compromisso é claro: promover práticas agrícolas sustentáveis, preservar áreas naturais e mitigar os impactos das mudanças climáticas. Junte-se a nós em nossa jornada rumo a um futuro mais verde e próspero.
     </p>
@@ -119,7 +129,7 @@
 
   <footer>
     <p><strong>Endereço:</strong> Rua Osório Ilgenfritz n.º 1295 Bairro Assis Brasil - Ijuí/RS </p>
-    <p><strong>Telefone:</strong> (55)99667-3553 | <strong>Email:</strong> contato@ecocarbon.org</p>
+    <p><strong>Telefone:</strong> (55)999903-5788 | <strong>Email:</strong> contato@ecocarbon.coop.br</p>
     <div class="social">
       <a href="#"><img src="icones/facebook.svg" alt="Facebook"/></a>
       <a href="#"><img src="icones/instagram.svg" alt="Instagram"/></a>
@@ -128,12 +138,28 @@
   </footer>
 
   <script>
-    // Salva o texto original de cada elemento com data-i18n
-    document.addEventListener("DOMContentLoaded", () => {
+    // MENU RESPONSIVO
+    document.addEventListener("DOMContentLoaded", function() {
+      const toggle = document.getElementById("navbar-toggle");
+      const links = document.getElementById("navbar-links");
+      toggle.onclick = function() {
+        links.classList.toggle("active");
+        toggle.classList.toggle("active");
+      };
+      // Fecha menu ao clicar em qualquer link (mobile)
+      document.querySelectorAll('.navbar-links a').forEach(link => {
+        link.onclick = () => {
+          if(window.innerWidth < 900) {
+            links.classList.remove("active");
+            toggle.classList.remove("active");
+          }
+        };
+      });
+      // Tradução
       document.querySelectorAll('[data-i18n]').forEach(el => {
         el.setAttribute('data-i18n-original', el.textContent);
       });
-      setLanguage('pt'); // Garante que ao carregar fica em português
+      setLanguage('pt');
     });
 
     function setLanguage(lang) {
@@ -144,7 +170,6 @@
         } else if (translations[lang] && translations[lang][key]) {
           el.textContent = translations[lang][key];
         }
-        // Se não tem tradução, mantém o texto atual
       });
     }
 
